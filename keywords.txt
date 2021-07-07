@@ -1,0 +1,54 @@
+#######################################
+# Syntax Coloring Map For SP_Audio
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+SP_Audio	KEYWORD1
+SP_AudioBeeper	KEYWORD1
+SP_AudioPlayer	KEYWORD1
+SP_AudioRecorder	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+setFs	KEYWORD2
+setBitlen	KEYWORD2
+setChannel	KEYWORD2
+getFs	KEYWORD2
+getBitlen	KEYWORD2
+getChannel	KEYWORD2
+isStopped	KEYWORD2
+isPlaying	KEYWORD2
+isPaused	KEYWORD2
+isRecording	KEYWORD2
+readState	KEYWORD2
+volume	KEYWORD2
+volumeUp	KEYWORD2
+volumeDown	KEYWORD2
+readVolume	KEYWORD2
+tone	KEYWORD2
+noTone	KEYWORD2
+play	KEYWORD2
+mp3play	KEYWORD2
+wavplay	KEYWORD2
+stop	KEYWORD2
+pause	KEYWORD2
+resume	KEYWORD2
+recorder	KEYWORD2
+mp3recorder	KEYWORD2
+wavrecorder	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+PLAYER_MAIN	LITERAL1
+PLAYER_SUB	LITERAL1
+PLAYER_BEEP	LITERAL1
+RECORDER	LITERAL1
+PLAYER_MAX	LITERAL1

@@ -6,18 +6,23 @@ extern int playerVolume[SP_Audio::PLAYER_MAX];
 
 err_t SP_AudioPlayer::setPlayer(msg_s *pmsg)
 {
-  static uint8_t   s_codec   = 0;
-  static uint32_t  s_fs      = 0;
-  static uint8_t   s_bitlen  = 0;
-  static uint8_t   s_channel = 0;
+  static struct param_s {
+    uint8_t  codec;
+    uint32_t fs;
+    uint8_t  bitlen;
+    uint8_t  channel;
+  } s_param[2] = {{0, 0, 0, 0}, {0, 0, 0, 0}};
   static AsClkMode s_clkmode = AS_CLKMODE_NORMAL;
   err_t            err       = AUDIOLIB_ECODE_OK;
   AsClkMode        clkmode;
 
-  if ((s_codec   != pmsg->codec) ||
-      (s_fs      != pmsg->fs) ||
-      (s_bitlen  != pmsg->bitlen) ||
-      (s_channel != pmsg->channel) ||
+  AudioClass::PlayerId id = (pmsg->id == 0) ? AudioClass::Player0 : AudioClass::Player1;
+  struct param_s *p_param = &s_param[pmsg->id];
+
+  if ((p_param->codec   != pmsg->codec) ||
+      (p_param->fs      != pmsg->fs) ||
+      (p_param->bitlen  != pmsg->bitlen) ||
+      (p_param->channel != pmsg->channel) ||
       (_mode != PLAYER_MODE)) {
 
     /* Set audio clock 48kHz/192kHz */
@@ -36,7 +41,6 @@ err_t SP_AudioPlayer::setPlayer(msg_s *pmsg)
     }
 
     /* Initialize player */
-    AudioClass::PlayerId id = (pmsg->id == 0) ? AudioClass::Player0 : AudioClass::Player1;
 
     err = theAudio->initPlayer(id,
                                pmsg->codec,
@@ -49,10 +53,11 @@ err_t SP_AudioPlayer::setPlayer(msg_s *pmsg)
       return err;
     }
 
-    s_codec   = pmsg->codec;
-    s_fs      = pmsg->fs;
-    s_bitlen  = pmsg->bitlen;
-    s_channel = pmsg->channel;
+    /* Save the current setting for each channel */
+    p_param->codec   = pmsg->codec;
+    p_param->fs      = pmsg->fs;
+    p_param->bitlen  = pmsg->bitlen;
+    p_param->channel = pmsg->channel;
   }
 
   return err;

@@ -16,7 +16,7 @@ err_t SP_AudioRecorder::setRecorder(msg_s *pmsg)
   theAudio->setRenderingClockMode(clkmode);
 
   /* Select input device as analog microphone */
-  theAudio->setRecorderMode(AS_SETRECDR_STS_INPUTDEVICE_MIC);
+  theAudio->setRecorderMode(AS_SETRECDR_STS_INPUTDEVICE_MIC, 100);
   _mode = RECORDER_MODE;
 
   theAudio->initRecorder(pmsg->codec,

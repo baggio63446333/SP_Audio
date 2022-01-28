@@ -4,8 +4,8 @@
 #define VOLUME_MIN -1020
 #define BEEP_VOLUME_MAX 0
 #define BEEP_VOLUME_MIN -90
-#define AMIC_VOLUME_MAX 0
-#define AMIC_VOLUME_MIN 120
+#define AMIC_VOLUME_MAX 210
+#define AMIC_VOLUME_MIN 0
 
 int playerStatus[SP_Audio::PLAYER_MAX] = {0, 0, 0, 0};
 int playerVolume[SP_Audio::PLAYER_MAX] = {0, 0, BEEP_VOLUME_MIN, 0};

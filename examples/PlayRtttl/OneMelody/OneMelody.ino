@@ -17,11 +17,11 @@
  *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *  See the GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/gpl.html>.
+ *  along with this program. If not, see <http://www.gnu.org/licenses/gpl.html>.
  *
  */
 
@@ -40,7 +40,7 @@ void noTone(uint8_t pin)
   beeper.noTone();
 }
 
-#include <PlayRtttl.h>
+#include <PlayRtttl.hpp>
 
 const int TONE_PIN = 11; // dummy
 
@@ -60,19 +60,28 @@ void setup() {
     /*
      * Play one melody
      */
+    Serial.println(F("Play StarWars"));
     playRtttlBlocking(TONE_PIN, StarWarsInRam);
-    delay(5000);
+    delay(10000);
 }
 
 void loop() {
     /*
      * And all the other melodies, but use now the non blocking functions
      */
-    for (uint8_t i = 1; i < ARRAY_SIZE_MELODIES_SMALL; ++i) {
-        const char* tSongPtr;
-        tSongPtr = (char*) RTTTLMelodiesSmall[i];
-        Serial.println(F("Play next melody"));
-        startPlayRtttlPGM(TONE_PIN, tSongPtr);
+    const char * const*tSongPtr;
+    /*
+     * Regular -> 21 melodies
+     * Tiny -> 6 melodies
+     * Small -> 11 melodies
+     */
+    for (uint_fast8_t i = 0; i < ARRAY_SIZE_MELODIES; ++i) {
+        tSongPtr = &RTTTLMelodies[i];
+        printNamePGMPGM(tSongPtr, &Serial);
+        Serial.print(F("Index="));
+        Serial.println(i);
+
+        startPlayRtttlPGMPGM(TONE_PIN, tSongPtr);
         while (updatePlayRtttl()) {
             /*
              * your own code here...
